@@ -7,4 +7,4 @@ docker push 304321233127.dkr.ecr.cn-northwest-1.amazonaws.com.cn/frontend/runnin
 # execute
 export AWS_ACCESS_KEY_ID=AKIAUNWXVQDT6RHH2O3Q
 export AWS_SECRET_ACCESS_KEY=
-make test-serverless:
+make test-serverless
