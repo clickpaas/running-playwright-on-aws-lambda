@@ -1,0 +1,10 @@
+# build
+docker build -t 350716731080.dkr.ecr.cn-northwest-1.amazonaws.com.cn/frontend/running-playwright-on-aws-lambda:v1 .
+docker build -t 304321233127.dkr.ecr.cn-northwest-1.amazonaws.com.cn/frontend/running-playwright-on-aws-lambda:v1 .
+# push
+docker push 304321233127.dkr.ecr.cn-northwest-1.amazonaws.com.cn/frontend/running-playwright-on-aws-lambda:v1
+
+# execute
+export AWS_ACCESS_KEY_ID=AKIAUNWXVQDT6RHH2O3Q
+export AWS_SECRET_ACCESS_KEY=
+make test-serverless:

@@ -1,6 +1,9 @@
 FROM node:14-alpine3.12@sha256:5733466201d57d5da95db081f7facc24f5505f290a9dd78e18fc81648ad44740 as build-image
-
+RUN echo "https://mirrors.aliyun.com/alpine/v3.12/main/" > /etc/apk/repositories \
+        && echo "https://mirrors.aliyun.com/alpine/v3.12/community/" >> /etc/apk/repositories \
+        && apk update
 RUN apk add --no-cache \
+    ca-certificates \
     build-base=0.5-r2 \
     libtool=2.4.6-r7 \
     libressl-dev=3.1.2-r0 \
@@ -20,19 +23,25 @@ WORKDIR /dependencies
 
 COPY tests/package*.json ./
 
+RUN npm config set registry https://registry.npm.taobao.org
+
 RUN npm ci \
     && npm install aws-lambda-ric@1.1.0 --save-exact
 
 FROM node:14-alpine3.12@sha256:5733466201d57d5da95db081f7facc24f5505f290a9dd78e18fc81648ad44740
-
+RUN echo "https://mirrors.aliyun.com/alpine/v3.12/main/" > /etc/apk/repositories \
+        && echo "https://mirrors.aliyun.com/alpine/v3.12/community/" >> /etc/apk/repositories \
+        && apk update
 # Installs Chromium package
+#RUN apk add --update ca-certificates
+#RUN update-ca-certificates
 RUN apk add --no-cache \
+    ca-certificates \
     chromium=86.0.4240.111-r0 \
-    nss=3.60-r1 \
+    nss=3.60-r2 \
     freetype=2.10.4-r0 \
     freetype-dev=2.10.4-r0 \
     harfbuzz=2.6.6-r0 \
-    ca-certificates=20191127-r4 \
     ttf-freefont=20120503-r1 \
     && rm -rf /var/cache/apk/*
 

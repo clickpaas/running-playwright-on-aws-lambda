@@ -23,7 +23,7 @@ async function runPlaywrightTestOnServerless() {
         new Promise((resolve) => {
           requester.runTest({
             file,
-            functionName: 'playwright-serverless-dev-run-tests',
+            functionName: 'running-playwright-on-aws-lambda',
             startTestTime,
             resolve,
           })
